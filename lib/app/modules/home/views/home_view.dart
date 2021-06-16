@@ -34,10 +34,14 @@ class HomeView extends GetView<HomeController> {
         BottomNavyBarItem(
           icon: Icon(Icons.bluetooth),
           title: Text('Bluetooth'),
+          activeColor: Colors.brown,
+          inactiveColor: Colors.blueGrey,
         ),
         BottomNavyBarItem(
           icon: Icon(Icons.nfc),
           title: Text('NFC'),
+          activeColor: Colors.brown,
+          inactiveColor: Colors.blueGrey,
         ),
       ],
       onItemSelected: (page) => controller.changePage(page),
@@ -62,14 +66,36 @@ class HomeView extends GetView<HomeController> {
   Widget buildBluetoothPage() {
     return Column(
       children: [
-        Text("Dispositivos bluetooth próximos"),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Dispositivos bluetooth próximos",
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
         Expanded(
           child: ListView(
             children: controller.listBluetoothDevicesOut
                 .map(
                   (device) => ListTile(
-                    title: Text(device.id),
-                    subtitle: Text(device.name),
+                    leading: Icon(Icons.bluetooth),
+                    title: Text(
+                      device.id,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    subtitle: Text(
+                      device.name,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                     onTap: () => controller.connectToDevice(device),
                   ),
                 )
@@ -83,14 +109,29 @@ class HomeView extends GetView<HomeController> {
   Widget buildNFCPage() {
     return Column(
       children: [
-        Text("Dispositivos NFC próximos"),
+        Text(
+          "Dispositivos NFC próximos",
+          style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         Expanded(
           child: ListView(
             children: controller.listNFCDevicesOut
                 .map(
                   (tag) => ListTile(
-                    title: Text(tag.toString()),
-                    onTap: () => controller.writeNFC(tag.data['id']),
+                    leading: Icon(Icons.nfc),
+                    title: Text(
+                      tag.toString(),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    onTap: () => controller.writeNFC(
+                      tag.data['id'],
+                    ),
                   ),
                 )
                 .toList(),
