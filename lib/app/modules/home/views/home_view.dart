@@ -10,15 +10,10 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HomeView'),
+        title: Obx(() => Text(controller.barTexrOut)),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text(
-          'HomeView is working',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
+      body: buildPage(controller.pageControllerOut),
       bottomNavigationBar: Obx(
         () => BottomNavyBar(
           selectedIndex: controller.pageControllerOut,
@@ -37,6 +32,15 @@ class HomeView extends GetView<HomeController> {
           ],
           onItemSelected: (page) => controller.changePage(page),
         ),
+      ),
+    );
+  }
+
+  Center buildPage(int page) {
+    return Center(
+      child: Text(
+        'HomeView is working',
+        style: TextStyle(fontSize: 20),
       ),
     );
   }
