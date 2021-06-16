@@ -9,6 +9,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: 4.1.4
   bottom_navy_bar:
+  flutter_reactive_ble:
+  location:
+  nfc_manager:
   flutter:
     sdk: flutter
 
