@@ -36,12 +36,8 @@ class HomeView extends GetView<HomeController> {
           title: Text('Bluetooth'),
         ),
         BottomNavyBarItem(
-          icon: Icon(Icons.bluetooth),
+          icon: Icon(Icons.nfc),
           title: Text('NFC'),
-        ),
-        BottomNavyBarItem(
-          icon: Icon(Icons.settings),
-          title: Text('Setup'),
         ),
       ],
       onItemSelected: (page) => controller.changePage(page),
@@ -54,8 +50,6 @@ class HomeView extends GetView<HomeController> {
         return buildBluetoothPage();
       case 1:
         return buildNFCPage();
-      case 2:
-        return buildSetupPage();
     }
     return Center(
       child: Text(
@@ -76,7 +70,7 @@ class HomeView extends GetView<HomeController> {
                   (device) => ListTile(
                     title: Text(device.id),
                     subtitle: Text(device.name),
-                    onTap: () => controller.connectToDevice(device.id),
+                    onTap: () => controller.connectToDevice(device),
                   ),
                 )
                 .toList(),
@@ -87,12 +81,22 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget buildNFCPage() {
-    return Container();
-  }
-
-  Widget buildSetupPage() {
-    return Container(
-      color: Colors.green,
+    return Column(
+      children: [
+        Text("Dispositivos NFC próximos"),
+        Expanded(
+          child: ListView(
+            children: controller.listNFCDevicesOut
+                .map(
+                  (tag) => ListTile(
+                    title: Text(tag.toString()),
+                    onTap: () => controller.writeNFC(tag.data['id']),
+                  ),
+                )
+                .toList(),
+          ),
+        )
+      ],
     );
   }
 }

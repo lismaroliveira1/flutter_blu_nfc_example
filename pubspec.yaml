@@ -12,6 +12,9 @@ dependencies:
   flutter_reactive_ble:
   location:
   nfc_manager:
+  another_flushbar:
+  flutter_easyloading:
+
   flutter:
     sdk: flutter
 
